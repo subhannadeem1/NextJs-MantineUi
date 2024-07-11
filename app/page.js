@@ -1,113 +1,555 @@
-import Image from "next/image";
+"use client";
+
+import Header from "./component/header";
+import { useState } from "react";
+import {
+  Group,
+  Avatar,
+  Text,
+  Box,
+  Button,
+  Input,
+  Table,
+  Flex,
+  Checkbox,
+} from "@mantine/core";
+import { IconSearch, IconTrash } from "@tabler/icons-react";
+import DeleteModal from "./component/modal/DeleteModal";
 
 export default function Home() {
-  return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <div className="z-10 max-w-5xl w-full items-center justify-between font-mono text-sm lg:flex">
-        <p className="fixed left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto  lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-zinc-800/30">
-          Get started by editing&nbsp;
-          <code className="font-mono font-bold">app/page.js</code>
-        </p>
-        <div className="fixed bottom-0 left-0 flex h-48 w-full items-end justify-center bg-gradient-to-t from-white via-white dark:from-black dark:via-black lg:static lg:h-auto lg:w-auto lg:bg-none">
-          <a
-            className="pointer-events-none flex place-items-center gap-2 p-8 lg:pointer-events-auto lg:p-0"
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+  const user = {
+    name: "Subhan Nadeem",
+    email: "Subhanch@gmail.com",
+    image:
+      "https://png.pngtree.com/element_our/png/20181102/avatar-profile-logo-vector-emblem-illustration-modern-illustration-png_227485.jpg",
+  };
+  const [elements, setElements] = useState([
+    {
+      position: (
+        <Group gap={7}>
+          <Avatar
+            src={user.image}
+            alt={user.name}
+            radius="xl"
+            style={{
+              width: 36,
+              height: 36,
+            }}
+          />
+          <div>
+            <Text mb={5} fw={500} size="sm" lh={1} mr={3}>
+              {user.name}
+            </Text>
+            <Text
+              fw={400}
+              size="sm"
+              lh={1}
+              mr={3}
+              style={{
+                color: "#959EAD",
+              }}
+            >
+              {user.email}
+            </Text>
+          </div>
+        </Group>
+      ),
+      
+      LastActive: "31. Dec. 2022",
+      Occupation: "Job",
+      Status: "Not Active",
+    },
+    {
+      position: (
+        <Group gap={7}>
+          <Avatar
+            src={user.image}
+            alt={user.name}
+            radius="xl"
+            style={{
+              width: 36,
+              height: 36,
+            }}
+          />
+          <div>
+            <Text mb={5} fw={500} size="sm" lh={1} mr={3}>
+              {user.name}
+            </Text>
+            <Text
+              fw={400}
+              size="sm"
+              lh={1}
+              mr={3}
+              style={{
+                color: "#959EAD",
+              }}
+            >
+              {user.email}
+            </Text>
+          </div>
+        </Group>
+      ),
+      
+      LastActive: "31. Dec. 2022",
+      Occupation: "Business",
+      Status: "Active",
+    },
+    {
+      position: (
+        <Group gap={7}>
+          <Avatar
+            src={user.image}
+            alt={user.name}
+            radius="xl"
+            style={{
+              width: 36,
+              height: 36,
+            }}
+          />
+          <div>
+            <Text mb={5} fw={500} size="sm" lh={1} mr={3}>
+              {user.name}
+            </Text>
+            <Text
+              fw={400}
+              size="sm"
+              lh={1}
+              mr={3}
+              style={{
+                color: "#959EAD",
+              }}
+            >
+              {user.email}
+            </Text>
+          </div>
+        </Group>
+      ),
+      
+      LastActive: "31. Dec. 2022",
+      Occupation: "Job",
+      Status: "Not Active",
+    },
+    {
+      position: (
+        <Group gap={7}>
+          <Avatar
+            src={user.image}
+            alt={user.name}
+            radius="xl"
+            style={{
+              width: 36,
+              height: 36,
+            }}
+          />
+          <div>
+            <Text mb={5} fw={500} size="sm" lh={1} mr={3}>
+              {user.name}
+            </Text>
+            <Text
+              fw={400}
+              size="sm"
+              lh={1}
+              mr={3}
+              style={{
+                color: "#959EAD",
+              }}
+            >
+              {user.email}
+            </Text>
+          </div>
+        </Group>
+      ),
+      
+      LastActive: "31. Dec. 2022",
+      Occupation: "Business",
+      Status: "Active",
+    },
+    {
+      position: (
+        <Group gap={7}>
+          <Avatar
+            src={user.image}
+            alt={user.name}
+            radius="xl"
+            style={{
+              width: 36,
+              height: 36,
+            }}
+          />
+          <div>
+            <Text mb={5} fw={500} size="sm" lh={1} mr={3}>
+              {user.name}
+            </Text>
+            <Text
+              fw={400}
+              size="sm"
+              lh={1}
+              mr={3}
+              style={{
+                color: "#959EAD",
+              }}
+            >
+              {user.email}
+            </Text>
+          </div>
+        </Group>
+      ),
+     
+      LastActive: "31. Dec. 2022",
+      Occupation: "Job",
+      Status: "Not Active",
+    },
+    {
+      position: (
+        <Group gap={7}>
+          <Avatar
+            src={user.image}
+            alt={user.name}
+            radius="xl"
+            style={{
+              width: 36,
+              height: 36,
+            }}
+          />
+          <div>
+            <Text mb={5} fw={500} size="sm" lh={1} mr={3}>
+              {user.name}
+            </Text>
+            <Text
+              fw={400}
+              size="sm"
+              lh={1}
+              mr={3}
+              style={{
+                color: "#959EAD",
+              }}
+            >
+              {user.email}
+            </Text>
+          </div>
+        </Group>
+      ),
+      
+      LastActive: "31. Dec. 2022",
+      Occupation: "Business",
+      Status: "Active",
+    },
+    {
+      position: (
+        <Group gap={7}>
+          <Avatar
+            src={user.image}
+            alt={user.name}
+            radius="xl"
+            style={{
+              width: 36,
+              height: 36,
+            }}
+          />
+          <div>
+            <Text mb={5} fw={500} size="sm" lh={1} mr={3}>
+              {user.name}
+            </Text>
+            <Text
+              fw={400}
+              size="sm"
+              lh={1}
+              mr={3}
+              style={{
+                color: "#959EAD",
+              }}
+            >
+              {user.email}
+            </Text>
+          </div>
+        </Group>
+      ),
+      
+      LastActive: "31. Dec. 2022",
+      Occupation: "Job",
+      Status: "Not Active",
+    },
+    {
+      position: (
+        <Group gap={7}>
+          <Avatar
+            src={user.image}
+            alt={user.name}
+            radius="xl"
+            style={{
+              width: 36,
+              height: 36,
+            }}
+          />
+          <div>
+            <Text mb={5} fw={500} size="sm" lh={1} mr={3}>
+              {user.name}
+            </Text>
+            <Text
+              fw={400}
+              size="sm"
+              lh={1}
+              mr={3}
+              style={{
+                color: "#959EAD",
+              }}
+            >
+              {user.email}
+            </Text>
+          </div>
+        </Group>
+      ),
+      
+      LastActive: "31. Dec. 2022",
+      Occupation: "Business",
+      Status: "Active",
+    },
+    {
+      position: (
+        <Group gap={7}>
+          <Avatar
+            src={user.image}
+            alt={user.name}
+            radius="xl"
+            style={{
+              width: 36,
+              height: 36,
+            }}
+          />
+          <div>
+            <Text mb={5} fw={500} size="sm" lh={1} mr={3}>
+              {user.name}
+            </Text>
+            <Text
+              fw={400}
+              size="sm"
+              lh={1}
+              mr={3}
+              style={{
+                color: "#959EAD",
+              }}
+            >
+              {user.email}
+            </Text>
+          </div>
+        </Group>
+      ),
+      
+      LastActive: "31. Dec. 2022",
+      Occupation: "Job",
+      Status: "Not Active",
+    },
+  ]);
+  // const [selectedRows, setSelectedRows] = useState<number[]>([]);
+  const [selectedRows, setSelectedRows] = useState([]);
+  const [showCheckboxes, setShowCheckboxes] = useState(false);
+  // const [selectAllChecked, setSelectAllChecked] = useState(false);
+  const [showModal, setShowModal] = useState(false);
+  const handleDelete = () => {
+    const newElements = elements.filter(
+      (_, index) => !selectedRows.includes(index)
+    );
+    setElements(newElements);
+    setSelectedRows([]);
+    setShowCheckboxes(false);
+    setShowModal(false);
+  };
+
+  const handleTrashClick = () => {
+    setShowCheckboxes(!showCheckboxes);
+  };
+  const handleSelectAll = (event) => {
+    const checked = event.currentTarget.checked;
+    setSelectAllChecked(checked);
+    if (checked) {
+      setSelectedRows(elements.map((_, index) => index));
+    } else {
+      setSelectedRows([]);
+    }
+  };
+
+  const rows = elements.map((element, index) => (
+    <Table.Tr
+      key={index}
+      bg={
+        selectedRows.includes(index)
+          ? "var(--mantine-color-blue-light)"
+          : undefined
+      }
+    >
+      {showCheckboxes && (
+        <Table.Td>
+          <Checkbox
+            aria-label="Select row"
+            checked={selectedRows.includes(index)}
+            onChange={(event) =>
+              setSelectedRows(
+                event.currentTarget.checked
+                  ? [...selectedRows, index]
+                  : selectedRows.filter((i) => i !== index)
+              )
+            }
+          />
+        </Table.Td>
+      )}
+      <Table.Td>{element.position}</Table.Td>
+      <Table.Td>{element.Occupation}</Table.Td>
+      <Table.Td>{element.LastActive}</Table.Td>
+      <Table.Td>{element.Status}</Table.Td>
+      <Table.Td>
+        {showCheckboxes ? (
+          <Button
+            variant="filled"
+            color="#00AB46"
+            radius="lg"
+            onClick={() => setShowModal(true)}
           >
-            By{" "}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className="dark:invert"
-              width={100}
-              height={24}
-              priority
+            Delete
+          </Button>
+          
+        ) : (
+          <Button variant="filled" color="#00AB46" radius="lg">
+            Message
+          </Button>
+        )}
+        <DeleteModal isOpen={showModal} onClose={() => setShowModal(false)} onDelete={handleDelete} />
+      </Table.Td>
+    </Table.Tr>
+  ));
+  return (
+    <>
+      <Header />
+      <Box
+        style={{
+          width: "100%",
+          height: "100%",
+        }}
+      >
+        <Box ml={160} mr={160} mt="40px">
+          <Flex gap="md" align={"center"} justify={"center"} width={"100%"}>
+            <Input
+              // mt="40px"
+              w={"100%"}
+              variant="filled"
+              rightSection={
+                <div style={{ paddingRight: "20px", borderRadius: "5px" }}>
+                  <IconSearch />
+                </div>
+              }
+              placeholder="Search by user name, occupation..."
             />
-          </a>
+            <Box>
+              <IconTrash
+                style={{
+                  cursor: "pointer",
+                  backgroundColor: "#00AB46",
+                  width: "42px",
+                  height: "42px",
+                  borderRadius: "5px",
+                }}
+                onClick={() => setShowCheckboxes(!showCheckboxes)}
+              />
+            </Box>
+          </Flex>
+
+          <Table
+            striped
+            withRowBorders={false}
+            style={{
+              // width:1600,
+              height: "77px",
+            }}
+          >
+            <Table.Thead>
+              <Table.Tr>
+              {showCheckboxes && <Table.Th />}
+                <Table.Th>Name of users</Table.Th>
+                <Table.Th>Occupation</Table.Th>
+                <Table.Th>Last Active</Table.Th>
+                <Table.Th>Status</Table.Th>
+                <Table.Th>Action</Table.Th>
+              </Table.Tr>
+            </Table.Thead>
+            <Table.Tbody>{rows}</Table.Tbody>
+          </Table>
+          <Box>
+            <Flex mt={30} mb={50} ml={"90%"}>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="icon icon-tabler icon-tabler-square-arrow-left"
+                width="32"
+                height="32"
+                viewBox="0 0 24 24"
+                stroke-width="1.5"
+                stroke="#00AB46"
+                fill="none"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                <path d="M12 8l-4 4l4 4" />
+                <path d="M16 12h-8" />
+                <path d="M3 3m0 2a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v14a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2z" />
+              </svg>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="icon icon-tabler icon-tabler-square-rounded-number-1"
+                width="32"
+                height="32"
+                viewBox="0 0 24 24"
+                stroke-width="1.5"
+                stroke="#999999"
+                fill="none"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                <path d="M10 10l2 -2v8" />
+                <path d="M12 3c7.2 0 9 1.8 9 9s-1.8 9 -9 9s-9 -1.8 -9 -9s1.8 -9 9 -9z" />
+              </svg>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="icon icon-tabler icon-tabler-square-rounded-number-2"
+                width="32"
+                height="32"
+                viewBox="0 0 24 24"
+                stroke-width="1.5"
+                stroke="#00AB46"
+                fill="none"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                <path d="M10 8h3a1 1 0 0 1 1 1v2a1 1 0 0 1 -1 1h-2a1 1 0 0 0 -1 1v2a1 1 0 0 0 1 1h3" />
+                <path d="M12 3c7.2 0 9 1.8 9 9s-1.8 9 -9 9s-9 -1.8 -9 -9s1.8 -9 9 -9z" />
+              </svg>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="icon icon-tabler icon-tabler-square-arrow-right"
+                width="32"
+                height="32"
+                viewBox="0 0 24 24"
+                stroke-width="1.5"
+                stroke="#00AB46"
+                fill="none"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                <path d="M12 16l4 -4l-4 -4" />
+                <path d="M8 12h8" />
+                <path d="M3 3m0 2a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v14a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2z" />
+              </svg>
+            </Flex>
+          </Box>
+        </Box>
+      </Box>
+      <div>
+            <button onClick={() => setShowModal(true)} className="bg-red-500 text-white px-4 py-2 rounded">
+                Delete Item
+            </button>
+            <DeleteModal isOpen={showModal} onClose={() => setShowModal(false)} onDelete={handleDelete} />
         </div>
-      </div>
-
-      <div className="relative flex place-items-center before:absolute before:h-[300px] before:w-full sm:before:w-[480px] before:-translate-x-1/2 before:rounded-full before:bg-gradient-radial before:from-white before:to-transparent before:blur-2xl before:content-[''] after:absolute after:-z-20 after:h-[180px] after:w-full sm:after:w-[240px] after:translate-x-1/3 after:bg-gradient-conic after:from-sky-200 after:via-blue-200 after:blur-2xl after:content-[''] before:dark:bg-gradient-to-br before:dark:from-transparent before:dark:to-blue-700 before:dark:opacity-10 after:dark:from-sky-900 after:dark:via-[#0141ff] after:dark:opacity-40 before:lg:h-[360px] z-[-1]">
-        <Image
-          className="relative dark:drop-shadow-[0_0_0.3rem_#ffffff70] dark:invert"
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
-
-      <div className="mb-32 grid text-center lg:max-w-5xl lg:w-full lg:mb-0 lg:grid-cols-4 lg:text-left">
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Docs{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Find in-depth information about Next.js features and API.
-          </p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800 hover:dark:bg-opacity-30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Learn{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Learn about Next.js in an interactive course with&nbsp;quizzes!
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Templates{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Explore starter templates for Next.js.
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Deploy{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50 text-balance`}>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
-    </main>
+    </>
   );
 }
