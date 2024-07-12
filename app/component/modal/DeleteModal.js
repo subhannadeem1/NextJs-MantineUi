@@ -1,4 +1,4 @@
-import { Modal, Button, Group, Text, Box } from '@mantine/core';
+import { Modal, Button, Group, Text, Box, Paper } from '@mantine/core';
 import { IconQuestionMark } from '@tabler/icons-react';
 
 const DeleteModal = ({ isOpen, onClose, onDelete }) => {
@@ -6,23 +6,13 @@ const DeleteModal = ({ isOpen, onClose, onDelete }) => {
     <Modal
       opened={isOpen}
       onClose={onClose}
-      size="825px" 
+      size="825px"
       centered
-      
       padding="lg"
-      styles={{
-        root: {
-          borderRadius: 15, // Adjust border radius as needed
-          backgroundColor: 'transparent', // Make modal background transparent
-          boxShadow: '0px 10px 40px rgba(0, 0, 0, 0.1)', // Add box shadow for depth
-        },
-        body: {
-          backgroundColor: 'white', // Ensure modal content has a white background
-          borderRadius: 15, // Match border radius to root for consistency
-        },
-      }}
+      radius={15}
     >
-      <Box >
+      <Paper   >
+      <Box>
         <Box position="center" ml={"382px"}>
           <IconQuestionMark stroke={2} />
         </Box>
@@ -37,20 +27,23 @@ const DeleteModal = ({ isOpen, onClose, onDelete }) => {
             variant="outline"
             color="green"
             onClick={onClose}
-            mb={"60px"} ml={"40px"}
-            style={{ width: 345, height: 60, borderRadius: "15px"}} // Adjust width and height here
+            mb={"60px"}
+            ml={"40px"}
+            style={{ width: 345, height: 60, borderRadius: "15px" }}
           >
             No
           </Button>
           <Button
             color="green"
-            onClick={onDelete} mb={"60px"} 
-            style={{ width: 345, height: 60, borderRadius: "15px" }} // Adjust width and height here
+            onClick={onDelete}
+            mb={"60px"}
+            style={{ width: 345, height: 60, borderRadius: "15px" }}
           >
             Yes
           </Button>
         </Group>
       </Box>
+      </Paper>
     </Modal>
   );
 };

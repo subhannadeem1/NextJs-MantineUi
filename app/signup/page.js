@@ -1,3 +1,4 @@
+"use client"
 import {
   TextInput,
   PasswordInput,
@@ -11,12 +12,20 @@ import {
   Anchor,
   BackgroundImage
 } from "@mantine/core";
-
+import AppleLoginButton from "../component/auth/AppleLoginButton";
+import GoogleLoginButton from "../component/auth/GoogleLoginButton";
 import { IconBrandGoogle, IconBrandApple } from "@tabler/icons-react";
 
 
 
 const signup = () => {
+  const handleGoogleLogin = () => {
+    signIn('google');
+  };
+
+  const handleAppleLogin = () => {
+    signIn('apple');
+  };
   return (
     <>
     <BackgroundImage
@@ -173,35 +182,8 @@ const signup = () => {
             <Text size="sm"  pb={28} fw={400}>
               Continue with:
             </Text>
-            <Button
-              variant="default"
-              color="gray"
-              style={{
-                width: 200,
-                position: "relative",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-              }}
-            >
-              <IconBrandGoogle style={{ marginRight: 10 }} />
-              Google
-            </Button>
-            <Button
-              variant="default"
-              color="gray"
-              style={{
-                width: 200,
-                position: "relative",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                marginTop: 20
-              }}
-            >
-              <IconBrandApple style={{ marginRight: 10 }} />
-              Apple ID
-            </Button>
+            <GoogleLoginButton onClick={handleGoogleLogin} />
+            <AppleLoginButton onClick={handleAppleLogin} />
             </box>
           </Box>
         </Box>

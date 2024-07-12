@@ -1,25 +1,41 @@
 "use client"
-import React, { useState } from 'react';
-import DeleteModal from '../component/modal/DeleteModal';
+import { Button, Checkbox, Group, TextInput } from '@mantine/core';
+import { useForm } from '@mantine/form';
 
-const YourComponent = () => {
-    const [showModal, setShowModal] = useState(false);
+  function Demo() {
+  const form = useForm({
+    mode: 'uncontrolled',
+    initialValues: {
+      email: '',
+      termsOfService: false,
+    },
 
-    const handleDelete = () => {
-        // Perform delete logic here
-        console.log('Deleting...');
-        // Close modal after deleting
-        setShowModal(false);
-    };
+    validate: {
+      email: (value) => (/^\S+@\S+$/.test(value) ? null : 'Invalid email'),
+    },
+  });
 
-    return (
-        <div>
-            <button onClick={() => setShowModal(true)} className="bg-red-500 text-white px-4 py-2 rounded">
-                Delete Item
-            </button>
-            <DeleteModal isOpen={showModal} onClose={() => setShowModal(false)} onDelete={handleDelete} />
-        </div>
-    );
-};
+  return (
+    <form onSubmit={form.onSubmit((values) => console.log(values))}>
+      <TextInput
+        withAsterisk
+        label="Email"
+        placeholder="your@email.com"
+        key={form.key('email')}
+        {...form.getInputProps('email')}
+      />
 
-export default YourComponent;
+      <Checkbox
+        mt="md"
+        label="I agree to sell my privacy"
+        key={form.key('termsOfService')}
+        {...form.getInputProps('termsOfService', { type: 'checkbox' })}
+      />
+
+      <Group justify="flex-end" mt="md">
+        <Button type="submit">Submit</Button>
+      </Group>
+    </form>
+  );
+}
+export default Demo;

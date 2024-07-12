@@ -133,16 +133,19 @@ export default function Header() {
                 </UnstyledButton>
               </Menu.Target>
               <Menu.Dropdown>
-                <Menu.Item
+                
+                <Menu.Item 
                   leftSection={
                     <IconSwitchHorizontal
                       style={{ width: rem(16), height: rem(16) }}
                       stroke={1.5}
+
                     />
                   }
                 >
                   Edit Profile
                 </Menu.Item>
+                
                 <Menu.Divider />
                 <Menu.Item
                   leftSection={
