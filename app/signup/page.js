@@ -10,21 +10,54 @@ import {
   Radio,
   Select,
   Anchor,
-  BackgroundImage
+  BackgroundImage,
+  Notification
 } from "@mantine/core";
 
 import GoogleLoginButton from "../component/auth/GoogleLoginButton";
-
-
-
+import { useForm } from '@mantine/form';
+import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 
 const signup = () => {
+  const router = useRouter();
+  const [showNotification, setShowNotification] = useState(false);
+
+  const form = useForm({
+    initialValues: {
+      firstName: '',
+      lastName: '',
+      email: '',
+      password: '',
+      dateOfBirth: '',
+      occupation: '',
+      bio: '',
+      gender: '',
+    },
+    validate: {
+      firstName: (value) => (value ? null : 'First name is required'),
+      lastName: (value) => (value ? null : 'Last name is required'),
+      email: (value) => (/^\S+@\S+$/.test(value) ? null : 'Invalid email'),
+      password: (value) => (value.length >= 6 ? null : 'Password must be at least 6 characters long'),
+      dateOfBirth: (value) => (value ? null : 'Date of birth is required'),
+      occupation: (value) => (value ? null : 'Occupation is required'),
+      bio: (value) => (value ? null : 'Bio is required'),
+      gender: (value) => (['male', 'female', 'other'].includes(value) ? null : 'Invalid gender'),
+    },
+  });
+
   const handleGoogleLogin = () => {
     signIn('google');
   };
 
   const handleAppleLogin = () => {
     signIn('apple');
+  };
+  const handleSignupClick = () => {
+    setShowNotification(true);
+    setTimeout(() => {
+      router.push('/login');
+    }, 2000); // 2 seconds delay before navigating to the signup page
   };
   return (
     <>
@@ -35,7 +68,8 @@ const signup = () => {
         height: '100%',
         display: 'flex',
         justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
+        position: 'relative'
       }} // Adjust the size as needed
     >
      
@@ -65,7 +99,7 @@ const signup = () => {
             <Text size="sm" mt={16}  fw={500}>
               Please fill these information
             </Text>
-            <form>
+            <form onSubmit={form.onSubmit((values) => handleSignupClick())}>
               <Flex gap="md" direction="column">
                 <Flex gap="md">
                   <TextInput
@@ -75,6 +109,9 @@ const signup = () => {
                     radius="lg"
                     required
                     style={{ width: 345 }}
+                    value={form.values.firstName}
+                    onChange={(event) => form.setFieldValue('firstName', event.currentTarget.value)}
+                    error={form.errors.firstName}
                   />
 
                   <TextInput
@@ -84,8 +121,12 @@ const signup = () => {
                     radius="lg"
                     required
                     style={{ width: 345 }}
+                    value={form.values.lastName}
+                    onChange={(event) => form.setFieldValue('lastName', event.currentTarget.value)}
+                    error={form.errors.lastName}
                   />
                 </Flex>
+                
                 <TextInput
                 
                 pt={30}
@@ -95,6 +136,9 @@ const signup = () => {
                   required
                   type="email"
                   style={{ maxWidth: 705 }}
+                  value={form.values.email}
+                  onChange={(event) => form.setFieldValue('email', event.currentTarget.value)}
+                  error={form.errors.email}
                 />
                 <PasswordInput
                 pt={30}
@@ -103,7 +147,11 @@ const signup = () => {
                   radius="lg"
                   required
                   style={{ maxWidth: 705 }}
+                  value={form.values.password}
+                  onChange={(event) => form.setFieldValue('password', event.currentTarget.value)}
+                  error={form.errors.password}
                 />
+               
                 <Flex gap="md">
                   <TextInput
                   mt={30}
@@ -113,6 +161,9 @@ const signup = () => {
                     required
                     type="date"
                     style={{ width: 345 }}
+                    value={form.values.dateOfBirth}
+                    onChange={(event) => form.setFieldValue('dateOfBirth', event.currentTarget.value)}
+                    error={form.errors.dateOfBirth}
                   />
 
                   <Select
@@ -124,6 +175,9 @@ const signup = () => {
                     searchable
                     nothingFoundMessage="Nothing found..."
                     style={{ width: 345 }}
+                    value={form.values.occupation}
+                    onChange={(value) => form.setFieldValue('occupation', value)}
+                    error={form.errors.occupation}
                   />
                 </Flex>
                 <TextInput
@@ -146,7 +200,8 @@ const signup = () => {
                     color="green"
                     radius="lg"
                     style={{ width: 705, height:60}}
-                    type="submit"
+                    type="button"
+                    onClick={handleSignupClick}
                   >
                     Sign up
                   </Button>
@@ -183,11 +238,29 @@ const signup = () => {
               Continue with:
             </Text>
             <GoogleLoginButton onClick={handleGoogleLogin} />
-            
+            {/* <AppleLoginButton onClick={handleAppleLogin} /> */}
             </box>
           </Box>
         </Box>
-      
+        {showNotification && (
+        <Box
+          style={{
+            position: 'absolute',
+            top: 0,
+            width: '100%',
+            display: 'flex',
+            justifyContent: 'center',
+            zIndex: 1000, // Ensure it appears above other content
+          }}
+        >
+          <Notification
+            title="We notify you that"
+            onClose={() => setShowNotification(false)}
+          >
+            your login successfully
+          </Notification>
+        </Box>
+      )}
       </BackgroundImage>
     </>
   );

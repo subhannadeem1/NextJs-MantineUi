@@ -340,11 +340,13 @@ export default function Home() {
       Status: "Not Active",
     },
   ]);
-  // const [selectedRows, setSelectedRows] = useState<number[]>([]);
+  const [search, setSearch] = useState('');
   const [selectedRows, setSelectedRows] = useState([]);
   const [showCheckboxes, setShowCheckboxes] = useState(false);
   // const [selectAllChecked, setSelectAllChecked] = useState(false);
   const [showModal, setShowModal] = useState(false);
+
+
   const handleDelete = () => {
     const newElements = elements.filter(
       (_, index) => !selectedRows.includes(index)
@@ -368,7 +370,23 @@ export default function Home() {
     }
   };
 
-  const rows = elements.map((element, index) => (
+const handleSearchChange = (event) => {
+    setSearch(event.target.value);
+  };
+
+ const filteredElements = elements.filter((element) =>
+    element.position.props.children[1].props.children[0].props.children
+      .toLowerCase()
+      .includes(search.toLowerCase()) ||
+    element.position.props.children[1].props.children[1].props.children
+      .toLowerCase()
+      .includes(search.toLowerCase()) ||
+    element.Occupation.toLowerCase().includes(search.toLowerCase()) ||
+    element.LastActive.toLowerCase().includes(search.toLowerCase()) ||
+    element.Status.toLowerCase().includes(search.toLowerCase())
+  );
+
+  const rows = filteredElements.map((element, index) => (
     <Table.Tr
       key={index}
       bg={
@@ -406,7 +424,6 @@ export default function Home() {
           >
             Delete
           </Button>
-          
         ) : (
           <Button variant="filled" color="#00AB46" radius="lg">
             Message
@@ -416,6 +433,7 @@ export default function Home() {
       </Table.Td>
     </Table.Tr>
   ));
+
   return (
     <>
       <Header />
@@ -437,6 +455,8 @@ export default function Home() {
                 </div>
               }
               placeholder="Search by user name, occupation..."
+              value={search}
+              onChange={handleSearchChange}
             />
             <Box>
               <IconTrash
