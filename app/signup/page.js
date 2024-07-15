@@ -57,12 +57,12 @@ const signup = () => {
     setShowNotification(true);
     setTimeout(() => {
       router.push('/login');
-    }, 2000); // 2 seconds delay before navigating to the signup page
+    }, 2000); 
   };
   return (
     <>
     <BackgroundImage
-      src="/images/Frame138.png" // Make sure to replace this with your actual image path
+      src="/images/Frame138.png" 
       style={{
         width: '100%',
         height: '100%',
@@ -70,7 +70,7 @@ const signup = () => {
         justifyContent: 'center',
         alignItems: 'center',
         position: 'relative'
-      }} // Adjust the size as needed
+      }} 
     >
      
       
