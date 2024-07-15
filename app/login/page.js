@@ -13,7 +13,7 @@ import {
 import { IconBrandGoogle, IconBrandApple } from "@tabler/icons-react";
 import { useForm } from '@mantine/form';
 import GoogleLoginButton from "../component/auth/GoogleLoginButton";
-import AppleLoginButton from "../component/auth/AppleLoginButton";
+
 const login = () => {
   const form = useForm({
     mode: 'uncontrolled',
@@ -167,7 +167,7 @@ const login = () => {
               Continue with:
             </Text>
             <GoogleLoginButton onClick={handleGoogleLogin} />
-            <AppleLoginButton onClick={handleAppleLogin} />
+            
           </Box>
         </Box>
         </Box>

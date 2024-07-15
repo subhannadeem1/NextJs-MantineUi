@@ -12,9 +12,9 @@ import {
   Anchor,
   BackgroundImage
 } from "@mantine/core";
-import AppleLoginButton from "../component/auth/AppleLoginButton";
+
 import GoogleLoginButton from "../component/auth/GoogleLoginButton";
-import { IconBrandGoogle, IconBrandApple } from "@tabler/icons-react";
+
 
 
 
@@ -183,7 +183,7 @@ const signup = () => {
               Continue with:
             </Text>
             <GoogleLoginButton onClick={handleGoogleLogin} />
-            <AppleLoginButton onClick={handleAppleLogin} />
+            
             </box>
           </Box>
         </Box>
