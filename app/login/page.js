@@ -11,53 +11,68 @@ import {
   BackgroundImage,
   Notification,
 } from "@mantine/core";
-import { useForm } from '@mantine/form';
-import { useState } from 'react';
-import { useRouter } from 'next/navigation';
-
+import { useForm } from "@mantine/form";
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+import supabase from "@/utils/supabase/supabaseClient"; 
+import { loginUser } from "../api/auth";
 import GoogleLoginButton from "../component/auth/GoogleLoginButton";
 
 const Login = () => {
   const [showNotification, setShowNotification] = useState(false);
+  const [notificationMessage, setNotificationMessage] = useState("");
   const router = useRouter();
 
   const form = useForm({
-    mode: 'uncontrolled',
     initialValues: {
-      email: '',
-      password: '',
+      email: "",
+      password: "",
     },
     validate: {
-      email: (value) => (/^\S+@\S+$/.test(value) ? null : 'Invalid email'),
-      password: (value) => (value.length >= 6 ? null : 'Password must be at least 6 characters long'),
+      email: (value) => (/^\S+@\S+$/.test(value) ? null : "Invalid email"),
+      // password: (value) => (value.length >= 6 ? null : "Password must be at least 6 characters long"),
     },
   });
 
   const handleGoogleLogin = () => {
-    signIn('google');
+    signIn("google");
   };
 
-  const handleAppleLogin = () => {
-    signIn('apple');
+  
+ 
+  const handleLoginClick = async () => {
+    const { email, password } = form.values;
+  
+    try {
+      const response = await loginUser(email, password);
+  
+      if (response.error) {
+        setNotificationMessage(response.error);
+        setShowNotification(true);
+      } else {
+        localStorage.setItem('userId', response.userId);
+        setNotificationMessage("Login successful!");
+        setShowNotification(true);
+        setTimeout(() => {
+          router.push("/");
+        }, 2000);
+      }
+    } catch (error) {
+      console.error('Error during login:', error);
+      setNotificationMessage("An unexpected error occurred.");
+      setShowNotification(true);
+    }
   };
-
-  const handleLoginClick = () => {
-    setShowNotification(true);
-    setTimeout(() => {
-      router.push('/');
-    }, 2000); // 2 seconds delay before navigating to the signup page
-  };
-
   return (
     <BackgroundImage
       src="/images/Frame138.png"
       style={{
-        width: '100vw',
-        height: '100vh',
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        position: 'relative', // Ensure the notification can be positioned relatively
+        width: "100vw",
+        height: "100vh",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        position: "relative", // Ensure the notification can be positioned relatively
       }}
     >
       <Box
@@ -82,18 +97,17 @@ const Login = () => {
           <Text size="sm" style={{ padding: "16px 0px 0px 0px" }} fw={400}>
             Please fill these information
           </Text>
-          <form onSubmit={form.onSubmit((values) => console.log(values))}>
+          <form onSubmit={form.onSubmit(() => handleLoginClick())}>
             <Flex gap="md" direction="column">
               <TextInput
                 label="Email"
                 placeholder="Enter your email"
                 radius="lg"
                 required
-                key={form.key('email')}
-                {...form.getInputProps('email')}
+                {...form.getInputProps("email")}
                 style={{
                   maxWidth: 705,
-                  padding: "40px 0px 0px 0px"
+                  padding: "40px 0px 0px 0px",
                 }}
               />
               <PasswordInput
@@ -101,9 +115,10 @@ const Login = () => {
                 placeholder="Enter your password"
                 radius="lg"
                 required
+                {...form.getInputProps("password")}
                 style={{
                   maxWidth: 705,
-                  padding: "30px 0px 0px 0px"
+                  padding: "30px 0px 0px 0px",
                 }}
               />
               <Text size="sm" weight={500} style={{ padding: "0px 0px 0px 590px" }}>
@@ -117,8 +132,7 @@ const Login = () => {
                   color="green"
                   radius="lg"
                   style={{ width: 705, height: 64 }}
-                  type="button"
-                  onClick={handleLoginClick}
+                  type="submit"
                 >
                   Login
                 </Button>
@@ -161,19 +175,16 @@ const Login = () => {
       {showNotification && (
         <Box
           style={{
-            position: 'absolute',
+            position: "absolute",
             top: 0,
-            width: '100%',
-            display: 'flex',
-            justifyContent: 'center',
+            width: "100%",
+            display: "flex",
+            justifyContent: "center",
             zIndex: 1000, // Ensure it appears above other content
           }}
         >
-          <Notification
-            title="We notify you that"
-            onClose={() => setShowNotification(false)}
-          >
-            your login successfully
+          <Notification title="Notification" onClose={() => setShowNotification(false)}>
+            {notificationMessage}
           </Notification>
         </Box>
       )}
@@ -181,4 +192,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default Login
