@@ -18,10 +18,13 @@ import GoogleLoginButton from "../component/auth/GoogleLoginButton";
 import { useForm } from '@mantine/form';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import { signupUser, checkEmailExists } from "../api/auth";
+
 
 const signup = () => {
   const router = useRouter();
   const [showNotification, setShowNotification] = useState(false);
+  const [ExistNotification, setExistNotification] = useState(false);
 
   const form = useForm({
     initialValues: {
@@ -53,12 +56,41 @@ const signup = () => {
   const handleAppleLogin = () => {
     signIn('apple');
   };
-  const handleSignupClick = () => {
+  
+
+
+const handleSignupClick = async () => {
+  console.log("Signup button clicked");
+  const { firstName, lastName, email, password, dateOfBirth, occupation, bio, gender } = form.values;
+
+  // Check if email already exists
+  const { exists, error } = await checkEmailExists(email);
+
+  if (error) {
+    console.error('Error checking email:', error);
+    return;
+  }
+
+  if (exists) {
+    // Show notification if email exists
+    setExistNotification(true);
+    return;
+  }
+    const response = await signupUser(firstName, lastName, email, password, dateOfBirth, occupation, bio, gender);
+    console.log("user data =====>",response);
+   if (response.error) {
+    console.error('Error inserting data:', error);
+  } else {
     setShowNotification(true);
     setTimeout(() => {
       router.push('/login');
-    }, 2000); 
-  };
+      }, 2000);
+      }
+      
+};
+
+  
+
   return (
     <>
     <BackgroundImage
@@ -156,7 +188,7 @@ const signup = () => {
                   <TextInput
                   mt={30}
                     label="Date of Birth"
-                    placeholder="MM/DD/YYYY"
+                    placeholder="YYYY-MM-DD"
                     radius="lg"
                     required
                     type="date"
@@ -191,8 +223,18 @@ const signup = () => {
                   <Text size="sm" fw={500}>
                     Gender:
                   </Text>
-                  <Radio value="male" label="Male" />
-                  <Radio value="female" label="Female" />
+                  <Radio
+    value="male"
+    label="Male"
+    checked={form.values.gender === 'male'}
+    onChange={(event) => form.setFieldValue('gender', event.currentTarget.value)}
+  />
+  <Radio
+    value="female"
+    label="Female"
+    checked={form.values.gender === 'female'}
+    onChange={(event) => form.setFieldValue('gender', event.currentTarget.value)}
+  />
                 </Group>
                 <Group position="center" mt="md">
                   <Button
@@ -258,6 +300,25 @@ const signup = () => {
             onClose={() => setShowNotification(false)}
           >
             your login successfully
+          </Notification>
+        </Box>
+      )}
+       {ExistNotification && (
+        <Box
+          style={{
+            position: 'absolute',
+            top: 0,
+            width: '100%',
+            display: 'flex',
+            justifyContent: 'center',
+            zIndex: 1000, // Ensure it appears above other content
+          }}
+        >
+          <Notification
+            title="We notify you that"
+            onClose={() => setExistNotification(false)}
+          >
+            User already exist
           </Notification>
         </Box>
       )}
